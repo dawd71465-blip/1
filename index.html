@@ -10,8 +10,15 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Vazir', 'Segoe UI', Tahoma, sans-serif;
+            -webkit-user-select: none;  /* جلوگیری از انتخاب متن در iOS */
+            -moz-user-select: none;     /* جلوگیری از انتخاب متن در Firefox */
+            -ms-user-select: none;      /* جلوگیری از انتخاب متن در IE */
+            user-select: none;          /* جلوگیری از انتخاب متن */
+            -webkit-tap-highlight-color: transparent; /* حذف هایلایت هنگام کلیک */
+            -webkit-touch-callout: none; /* جلوگیری از منوی کپی در iOS */
         }
 
+        /* استایل‌های قبلی حفظ می‌شوند */
         :root {
             --primary: #6c5ce7;
             --secondary: #a363d9;
@@ -72,12 +79,14 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             position: relative;
+            pointer-events: auto; /* اجازه کلیک به دکمه‌ها */
         }
 
         .main-card::-webkit-scrollbar {
             display: none;
         }
 
+        /* ===== دکمه بازگشت ===== */
         .back-button {
             position: absolute;
             top: 20px;
@@ -96,20 +105,96 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            pointer-events: auto;
         }
 
-        .back-button:hover {
-            transform: scale(1.1) rotate(-10deg);
-            box-shadow: 0 15px 30px rgba(214, 48, 49, 0.4);
+        .back-button:active {
+            transform: scale(0.9);
+            opacity: 0.8;
         }
 
-        .menu-page {
+        /* ===== دکمه‌های منو ===== */
+        .menu-btn {
+            padding: 25px;
+            border: none;
+            border-radius: 40px;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.1s;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 100%;
+            align-items: center;
+            gap: 20px;
+            border: 3px solid transparent;
+            pointer-events: auto;
         }
 
+        .menu-btn:active {
+            transform: scale(0.98);
+            opacity: 0.8;
+            background: #f0f0f0;
+        }
+
+        /* ===== دکمه محاسبه ===== */
+        .calculate-btn {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(135deg, var(--success), #00cec9);
+            color: white;
+            font-size: 1.4em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.1s;
+            margin: 20px 0;
+            pointer-events: auto;
+        }
+
+        .calculate-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        /* ===== فیلدهای ورودی ===== */
+        .input-wrapper input, .input-wrapper select {
+            width: 100%;
+            padding: 18px 20px;
+            border: 3px solid #dfe6e9;
+            border-radius: 30px;
+            font-size: 1.1em;
+            outline: none;
+            transition: all 0.3s;
+            background: white;
+            pointer-events: auto;
+            -webkit-user-select: text;  /* اجازه تایپ در فیلدها */
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        /* ===== غیرفعال کردن درگ و دراپ ===== */
+        img, a, div {
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+
+        /* ===== هدر و متن‌ها ===== */
+        .header h1, .header p, .menu-text h2, .menu-text p, .creator-name, .creator-title, .info-text p {
+            pointer-events: none; /* جلوگیری از کلیک روی متن‌ها */
+        }
+
+        /* ===== آیکون‌ها ===== */
+        .menu-icon, .creator-avatar, .info-icon {
+            pointer-events: none;
+        }
+
+        /* ===== نتیجه BMI ===== */
+        .result-card * {
+            pointer-events: none; /* جلوگیری از کلیک روی نتایج */
+        }
+
+        /* ===== استایل‌های قبلی ===== */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -134,26 +219,6 @@
             flex-direction: column;
             gap: 25px;
             padding: 20px 0;
-        }
-
-        .menu-btn {
-            padding: 25px;
-            border: none;
-            border-radius: 40px;
-            background: white;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border: 3px solid transparent;
-        }
-
-        .menu-btn:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: 0 30px 60px rgba(108, 92, 231, 0.2);
         }
 
         .menu-icon {
@@ -188,12 +253,6 @@
             font-size: 2em;
             color: var(--primary);
             opacity: 0.5;
-            transition: all 0.3s;
-        }
-
-        .menu-btn:hover .arrow {
-            opacity: 1;
-            transform: translateX(-5px);
         }
 
         .bmi-page {
@@ -213,6 +272,7 @@
             color: var(--primary);
             margin-bottom: 25px;
             text-align: center;
+            pointer-events: none;
         }
 
         .input-group {
@@ -225,6 +285,7 @@
             color: var(--dark);
             font-weight: 600;
             font-size: 1.1em;
+            pointer-events: none;
         }
 
         .input-wrapper {
@@ -233,50 +294,12 @@
             align-items: center;
         }
 
-        .input-wrapper input, .input-wrapper select {
-            width: 100%;
-            padding: 18px 20px;
-            border: 3px solid #dfe6e9;
-            border-radius: 30px;
-            font-size: 1.1em;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .input-wrapper input:focus, .input-wrapper select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 5px rgba(108, 92, 231, 0.1);
-        }
-
         .unit {
             position: absolute;
             left: 20px;
             color: #b2bec3;
             font-weight: 600;
-        }
-
-        .calculate-btn {
-            width: 100%;
-            padding: 20px;
-            border: none;
-            border-radius: 40px;
-            background: linear-gradient(135deg, var(--success), #00cec9);
-            color: white;
-            font-size: 1.4em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 20px 0;
-        }
-
-        .calculate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0, 184, 148, 0.3);
-        }
-
-        .calculate-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+            pointer-events: none;
         }
 
         .result-card {
@@ -449,12 +472,6 @@
             border-right: 5px solid var(--success);
         }
 
-        .weight-diff {
-            font-size: 1.3em;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-
         .required-star {
             color: var(--danger);
             margin-right: 5px;
@@ -502,8 +519,8 @@
                     </button>
                 </div>
 
-                <div style="text-align: center; margin-top: 30px; color: #b2bec3;">
-                    <p>نسخه ۳.۱.۰ | آخرین به‌روزرسانی: بهمن ۱۴۰۴</p>
+                <div style="text-align: center; margin-top: 30px; color: #b2bec3; pointer-events: none;">
+                    <p>نسخه ۳.۲.۰ | آخرین به‌روزرسانی: بهمن ۱۴۰۴</p>
                 </div>
             </div>
         </div>
@@ -518,7 +535,7 @@
                 <div class="input-group">
                     <label>👤 سن <span class="required-star">*</span></label>
                     <div class="input-wrapper">
-                        <input type="number" id="age" placeholder="مثال: ۳۰" min="2" max="120">
+                        <input type="number" id="age" placeholder="مثال: ۳۰" min="2" max="120" inputmode="numeric">
                         <span class="unit">سال</span>
                     </div>
                 </div>
@@ -537,7 +554,7 @@
                 <div class="input-group">
                     <label>📊 وزن <span class="required-star">*</span></label>
                     <div class="input-wrapper">
-                        <input type="number" id="weight" placeholder="مثال: ۷۰" step="0.1" min="10" max="300">
+                        <input type="number" id="weight" placeholder="مثال: ۷۰" step="0.1" min="10" max="300" inputmode="decimal">
                         <span class="unit">kg</span>
                     </div>
                 </div>
@@ -545,7 +562,7 @@
                 <div class="input-group">
                     <label>📏 قد <span class="required-star">*</span></label>
                     <div class="input-wrapper">
-                        <input type="number" id="height" placeholder="مثال: ۱۷۵" step="0.1" min="50" max="300">
+                        <input type="number" id="height" placeholder="مثال: ۱۷۵" step="0.1" min="50" max="300" inputmode="decimal">
                         <span class="unit">cm</span>
                     </div>
                 </div>
@@ -617,7 +634,7 @@
                         <div class="info-icon">📱</div>
                         <div class="info-text">
                             <h3>نسخه</h3>
-                            <p>۱ | بهینه‌سازی شده برای موبایل</p>
+                            <p>۳.۲.۰ | بهینه‌سازی شده برای موبایل</p>
                         </div>
                     </div>
                 </div>
@@ -626,7 +643,7 @@
                     ⭐ ۲۰۲۶ ⭐
                 </div>
 
-                <div style="text-align: center; margin-top: 20px; padding: 15px; background: #f8faff; border-radius: 30px;">
+                <div style="text-align: center; margin-top: 20px; padding: 15px; background: #f8faff; border-radius: 30px; pointer-events: none;">
                     <p style="color: var(--primary);">🌐 ساخته شده با عشق برای کاربران ایرانی</p>
                 </div>
             </div>
@@ -634,6 +651,67 @@
     </div>
 
     <script>
+        // جلوگیری از کلیک راست در کل صفحه
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // جلوگیری از انتخاب متن
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // جلوگیری از کپی کردن
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // جلوگیری از برش
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // جلوگیری از چسباندن (اختیاری)
+        document.addEventListener('paste', function(e) {
+            // برای فیلدهای ورودی اجازه چسباندن بدهیم
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+                return true;
+            }
+            e.preventDefault();
+            return false;
+        });
+
+        // جلوگیری از درگ کردن
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // جلوگیری از کلیدهای میانبر کپی
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+A
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'a')) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+I (ابزار توسعه)
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                return false;
+            }
+            
+            // F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
         // ===== نمایش صفحات =====
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(page => {
